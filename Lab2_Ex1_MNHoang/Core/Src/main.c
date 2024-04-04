@@ -10,9 +10,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-void display7SEG(int num)
+void display7SEG(int displayNumber)
 {
-  switch (num)
+  switch (displayNumber)
   {
   case 1:
     HAL_GPIO_WritePin(GPIOB, B_Pin | C_Pin, GPIO_PIN_RESET);
@@ -48,6 +48,10 @@ void display7SEG(int num)
   case 9:
     HAL_GPIO_WritePin(GPIOB, A_Pin | B_Pin | C_Pin | D_Pin | F_Pin | G_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOB, E_Pin, GPIO_PIN_SET);
+    break;
+  case 0:
+    HAL_GPIO_WritePin(GPIOB, A_Pin | B_Pin | C_Pin | D_Pin | E_Pin | F_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, G_Pin, GPIO_PIN_SET);
     break;
   default:
     HAL_GPIO_WritePin(GPIOB, A_Pin | B_Pin | C_Pin | D_Pin | E_Pin | F_Pin, GPIO_PIN_RESET);
@@ -116,6 +120,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  // Initialize 7-segment display & timer
   display7SEG(1);
   setTimer1(50); // 50 * 10ms = 500ms = 2 times per second = 2Hz
   int num_display = 2;
@@ -275,9 +280,6 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 /* USER CODE BEGIN 4 */
-int counter = 50;
-int flag = 0;
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   timerRun();
