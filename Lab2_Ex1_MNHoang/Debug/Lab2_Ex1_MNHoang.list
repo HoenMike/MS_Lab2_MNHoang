@@ -122,8 +122,8 @@ int main(void)
   setTimer0(100); // 100 * 10ms = 1000ms = 1 time per second = 1Hz (dot display)
  8000166:	2064      	movs	r0, #100	; 0x64
  8000168:	f000 fa16 	bl	8000598 <setTimer0>
-  setTimer1(50);  // 50 * 10ms = 500ms = 2 times per second = 2Hz (7-segment display)
- 800016c:	2032      	movs	r0, #50	; 0x32
+  setTimer1(25);  // 25 * 4 (display) * 10ms = 1000ms = 1 times per second = 2Hz (7-segment display)
+ 800016c:	2019      	movs	r0, #25
  800016e:	f000 fa27 	bl	80005c0 <setTimer1>
 
   while (1)
@@ -173,8 +173,8 @@ int main(void)
  80001b4:	2200      	movs	r2, #0
  80001b6:	601a      	str	r2, [r3, #0]
       }
-      setTimer1(50);
- 80001b8:	2032      	movs	r0, #50	; 0x32
+      setTimer1(25);
+ 80001b8:	2019      	movs	r0, #25
  80001ba:	f000 fa01 	bl	80005c0 <setTimer1>
     if (timer0_flag == 1)
  80001be:	e7d8      	b.n	8000172 <main+0x26>

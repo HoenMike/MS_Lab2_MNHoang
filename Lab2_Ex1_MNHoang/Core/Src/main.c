@@ -78,7 +78,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   // Initialize 7-segment display & timer
   setTimer0(100); // 100 * 10ms = 1000ms = 1 time per second = 1Hz (dot display)
-  setTimer1(50);  // 50 * 10ms = 500ms = 2 times per second = 2Hz (7-segment display)
+  setTimer1(25);  // 25 * 4 (display) * 10ms = 1000ms = 1 times per second = 2Hz (7-segment display)
 
   while (1)
   {
@@ -96,7 +96,7 @@ int main(void)
       {
         index_led = 0;
       }
-      setTimer1(50);
+      setTimer1(25);
     } // end of timer1_flag
   }
 }
