@@ -24,19 +24,23 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
+
+/* USER CODE BEGIN PV */
 const int MAX_LED = 4;
 int index_led = 0;
 int led_buffer[4] = {1, 2, 3, 0}; // LED Status
 
-int hour = 15, minute = 8, second = 50;
+int hour = 22, minute = 11, second = 50;
 
-/* USER CODE BEGIN PV */
+// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz, CLOCK_COUNTER = 1 second counter;
+const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 25, CLOCK_COUNTER = 100;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+
 /* USER CODE BEGIN PFP */
 void display7SEG(int displayNumber);
 void update7SEG(int index);
@@ -80,9 +84,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // Initialize 7-segment display & timer
-  setTimer0(100); // 100 * 10ms = 1000ms = 1 time per second = 1Hz (dot display)
-  setTimer1(25);  // 25 * 4 (display) * 10ms = 1000ms = 1 times per second = 1Hz (7-segment display)
-  setTimer2(100);
+  setTimer0(DOT_COUNTER);
+  setTimer1(LED_SWITCH_COUNTER);
+  setTimer2(CLOCK_COUNTER);
   updateClockBuffer();
 
   while (1)
@@ -92,7 +96,7 @@ int main(void)
     {
       HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
       HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
-      setTimer0(100);
+      setTimer0(DOT_COUNTER);
     } // end of timer0_flag
 
     if (timer1_flag == 1)
@@ -102,7 +106,7 @@ int main(void)
       {
         index_led = 0;
       }
-      setTimer1(25);
+      setTimer1(LED_SWITCH_COUNTER);
     } // end of timer1_flag
 
     if (timer2_flag == 1)
@@ -123,7 +127,7 @@ int main(void)
         hour = 0;
       }
       updateClockBuffer();
-      setTimer2(100);
+      setTimer2(CLOCK_COUNTER);
     } // end of timer2_flag
   }
 }
@@ -220,16 +224,16 @@ void updateClockBuffer()
   led_buffer[2] = minute / 10;
   led_buffer[3] = minute % 10;
 
-  if (hour < 10)
-  {
-    led_buffer[0] = 0;
-    led_buffer[1] = hour;
-  }
-  if (minute < 10)
-  {
-    led_buffer[2] = 0;
-    led_buffer[3] = minute;
-  }
+  // if (hour < 10)
+  // {
+  //   led_buffer[0] = 0;
+  //   led_buffer[1] = hour;
+  // }
+  // if (minute < 10)
+  // {
+  //   led_buffer[2] = 0;
+  //   led_buffer[3] = minute;
+  // }
 }
 /* USER CODE END 3 */
 
