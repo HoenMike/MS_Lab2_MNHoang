@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00009ad0  00000000  00000000  00040716  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0008207c  00000000  00000000  0004a1e6  2**0
+ 19 .debug_str    00081ffd  00000000  00000000  0004a1e6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  000026e0  00000000  00000000  000cc264  2**2
+ 20 .debug_frame  000026e0  00000000  00000000  000cc1e4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 000000a7  00000000  00000000  000ce944  2**0
+ 21 .debug_line_str 000000ac  00000000  00000000  000ce8c4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1446,44 +1446,98 @@ void SystemInit (void)
  80008ae:	4770      	bx	lr
 
 080008b0 <Reset_Handler>:
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+
+/* Call the clock system initialization function.*/
+    bl  SystemInit
  80008b0:	f7ff fff8 	bl	80008a4 <SystemInit>
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
  80008b4:	480b      	ldr	r0, [pc, #44]	; (80008e4 <LoopFillZerobss+0xe>)
+  ldr r1, =_edata
  80008b6:	490c      	ldr	r1, [pc, #48]	; (80008e8 <LoopFillZerobss+0x12>)
+  ldr r2, =_sidata
  80008b8:	4a0c      	ldr	r2, [pc, #48]	; (80008ec <LoopFillZerobss+0x16>)
+  movs r3, #0
  80008ba:	2300      	movs	r3, #0
+  b LoopCopyDataInit
  80008bc:	e002      	b.n	80008c4 <LoopCopyDataInit>
 
 080008be <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
  80008be:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
  80008c0:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
  80008c2:	3304      	adds	r3, #4
 
 080008c4 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
  80008c4:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
  80008c6:	428c      	cmp	r4, r1
+  bcc CopyDataInit
  80008c8:	d3f9      	bcc.n	80008be <CopyDataInit>
+  
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
  80008ca:	4a09      	ldr	r2, [pc, #36]	; (80008f0 <LoopFillZerobss+0x1a>)
+  ldr r4, =_ebss
  80008cc:	4c09      	ldr	r4, [pc, #36]	; (80008f4 <LoopFillZerobss+0x1e>)
+  movs r3, #0
  80008ce:	2300      	movs	r3, #0
+  b LoopFillZerobss
  80008d0:	e001      	b.n	80008d6 <LoopFillZerobss>
 
 080008d2 <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
  80008d2:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
  80008d4:	3204      	adds	r2, #4
 
 080008d6 <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
  80008d6:	42a2      	cmp	r2, r4
+  bcc FillZerobss
  80008d8:	d3fb      	bcc.n	80008d2 <FillZerobss>
+
+/* Call static constructors */
+    bl __libc_init_array
  80008da:	f001 fafb 	bl	8001ed4 <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
  80008de:	f7ff fc35 	bl	800014c <main>
+  bx lr
  80008e2:	4770      	bx	lr
+  ldr r0, =_sdata
  80008e4:	20000000 	.word	0x20000000
+  ldr r1, =_edata
  80008e8:	20000018 	.word	0x20000018
+  ldr r2, =_sidata
  80008ec:	08001f60 	.word	0x08001f60
+  ldr r2, =_sbss
  80008f0:	20000018 	.word	0x20000018
+  ldr r4, =_ebss
  80008f4:	200000ac 	.word	0x200000ac
 
 080008f8 <ADC1_2_IRQHandler>:
+ * @retval : None
+*/
+    .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
  80008f8:	e7fe      	b.n	80008f8 <ADC1_2_IRQHandler>
 	...
 
