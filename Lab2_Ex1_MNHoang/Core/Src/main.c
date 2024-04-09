@@ -28,7 +28,7 @@ TIM_HandleTypeDef htim2;
 /* USER CODE BEGIN PV */
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[4] = {1, 2, 3, 0}; // LED Status
+int led_buffer[4] = {1, 2, 3, 4}; // LED Status
 
 // DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz;
 const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 50;
