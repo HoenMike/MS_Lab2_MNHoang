@@ -28,12 +28,10 @@ TIM_HandleTypeDef htim2;
 /* USER CODE BEGIN PV */
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[4]; // LED Status
+int led_buffer[4] = {1, 2, 3, 0}; // LED Status
 
-int hour = 15, minute = 8, second = 50;
-
-// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz, CLOCK_COUNTER = 1 second counter;
-const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 25, CLOCK_COUNTER = 100;
+// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz;
+const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 25;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,8 +84,6 @@ int main(void)
   // Initialize 7-segment display & timer
   setTimer0(DOT_COUNTER);
   setTimer1(LED_SWITCH_COUNTER);
-  setTimer2(CLOCK_COUNTER);
-  updateClockBuffer();
 
   while (1)
   {
@@ -108,27 +104,6 @@ int main(void)
       }
       setTimer1(LED_SWITCH_COUNTER);
     } // end of timer1_flag
-
-    if (timer2_flag == 1)
-    {
-      second++;
-      if (second >= 60)
-      {
-        second = 0;
-        minute++;
-      }
-      if (minute >= 60)
-      {
-        minute = 0;
-        hour++;
-      }
-      if (hour >= 24)
-      {
-        hour = 0;
-      }
-      updateClockBuffer();
-      setTimer2(CLOCK_COUNTER);
-    } // end of timer2_flag
   }
 }
 /* USER CODE END WHILE */
@@ -215,25 +190,6 @@ void update7SEG(int index)
   default:
     break;
   }
-}
-
-void updateClockBuffer()
-{
-  led_buffer[0] = hour / 10;
-  led_buffer[1] = hour % 10;
-  led_buffer[2] = minute / 10;
-  led_buffer[3] = minute % 10;
-
-  // if (hour < 10)
-  // {
-  //   led_buffer[0] = 0;
-  //   led_buffer[1] = hour;
-  // }
-  // if (minute < 10)
-  // {
-  //   led_buffer[2] = 0;
-  //   led_buffer[3] = minute;
-  // }
 }
 /* USER CODE END 3 */
 
