@@ -80,9 +80,9 @@ Disassembly of section .text:
 
 0800014c <main>:
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
  800014c:	b580      	push	{r7, lr}
@@ -191,9 +191,9 @@ int main(void)
 
 080001dc <display7SEG>:
 }
-    /* USER CODE END WHILE */
+/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+/* USER CODE BEGIN 3 */
 void display7SEG(int displayNumber)
 {
  80001dc:	b580      	push	{r7, lr}
@@ -471,9 +471,9 @@ void update7SEG(int index)
 
 080003c8 <SystemClock_Config>:
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
  80003c8:	b580      	push	{r7, lr}
@@ -495,8 +495,8 @@ void SystemClock_Config(void)
  80003e8:	611a      	str	r2, [r3, #16]
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+   * in the RCC_OscInitTypeDef structure.
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
  80003ea:	2302      	movs	r3, #2
  80003ec:	61bb      	str	r3, [r7, #24]
@@ -522,11 +522,10 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
  800040e:	230f      	movs	r3, #15
  8000410:	607b      	str	r3, [r7, #4]
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
  8000412:	2300      	movs	r3, #0
  8000414:	60bb      	str	r3, [r7, #8]
@@ -560,10 +559,10 @@ void SystemClock_Config(void)
 	...
 
 08000440 <MX_TIM2_Init>:
-  * @brief TIM2 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief TIM2 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_TIM2_Init(void)
 {
  8000440:	b580      	push	{r7, lr}
@@ -657,7 +656,6 @@ static void MX_TIM2_Init(void)
   }
   /* USER CODE BEGIN TIM2_Init 2 */
   /* USER CODE END TIM2_Init 2 */
-
 }
  80004cc:	bf00      	nop
  80004ce:	3718      	adds	r7, #24
@@ -666,10 +664,10 @@ static void MX_TIM2_Init(void)
  80004d4:	20000038 	.word	0x20000038
 
 080004d8 <MX_GPIO_Init>:
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_GPIO_Init(void)
 {
  80004d8:	b580      	push	{r7, lr}
@@ -682,8 +680,8 @@ static void MX_GPIO_Init(void)
  80004e6:	605a      	str	r2, [r3, #4]
  80004e8:	609a      	str	r2, [r3, #8]
  80004ea:	60da      	str	r2, [r3, #12]
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -710,27 +708,24 @@ static void MX_GPIO_Init(void)
  800051a:	683b      	ldr	r3, [r7, #0]
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+  HAL_GPIO_WritePin(GPIOA, DOT_Pin | LED_RED_Pin | EN0_Pin | EN1_Pin | EN2_Pin | EN3_Pin, GPIO_PIN_RESET);
  800051c:	2200      	movs	r2, #0
  800051e:	f44f 717c 	mov.w	r1, #1008	; 0x3f0
  8000522:	4815      	ldr	r0, [pc, #84]	; (8000578 <MX_GPIO_Init+0xa0>)
  8000524:	f000 fc46 	bl	8000db4 <HAL_GPIO_WritePin>
-                          |EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, A_Pin|B_Pin|C_Pin|D_Pin
+  HAL_GPIO_WritePin(GPIOB, A_Pin | B_Pin | C_Pin | D_Pin | E_Pin | F_Pin | G_Pin, GPIO_PIN_RESET);
  8000528:	2200      	movs	r2, #0
  800052a:	217f      	movs	r1, #127	; 0x7f
  800052c:	4813      	ldr	r0, [pc, #76]	; (800057c <MX_GPIO_Init+0xa4>)
  800052e:	f000 fc41 	bl	8000db4 <HAL_GPIO_WritePin>
-                          |E_Pin|F_Pin|G_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : DOT_Pin LED_RED_Pin EN0_Pin EN1_Pin
                            EN2_Pin EN3_Pin */
-  GPIO_InitStruct.Pin = DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+  GPIO_InitStruct.Pin = DOT_Pin | LED_RED_Pin | EN0_Pin | EN1_Pin | EN2_Pin | EN3_Pin;
  8000532:	f44f 737c 	mov.w	r3, #1008	; 0x3f0
  8000536:	60bb      	str	r3, [r7, #8]
-                          |EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
  8000538:	2301      	movs	r3, #1
  800053a:	60fb      	str	r3, [r7, #12]
@@ -748,10 +743,9 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : A_Pin B_Pin C_Pin D_Pin
                            E_Pin F_Pin G_Pin */
-  GPIO_InitStruct.Pin = A_Pin|B_Pin|C_Pin|D_Pin
+  GPIO_InitStruct.Pin = A_Pin | B_Pin | C_Pin | D_Pin | E_Pin | F_Pin | G_Pin;
  8000550:	237f      	movs	r3, #127	; 0x7f
  8000552:	60bb      	str	r3, [r7, #8]
-                          |E_Pin|F_Pin|G_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
  8000554:	2301      	movs	r3, #1
  8000556:	60fb      	str	r3, [r7, #12]
@@ -767,8 +761,8 @@ static void MX_GPIO_Init(void)
  8000566:	4805      	ldr	r0, [pc, #20]	; (800057c <MX_GPIO_Init+0xa4>)
  8000568:	f000 faa8 	bl	8000abc <HAL_GPIO_Init>
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
  800056c:	bf00      	nop
  800056e:	3718      	adds	r7, #24
@@ -798,9 +792,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 08000594 <Error_Handler>:
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
  8000594:	b480      	push	{r7}
