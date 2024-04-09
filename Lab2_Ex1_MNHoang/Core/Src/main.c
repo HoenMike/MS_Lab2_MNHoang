@@ -32,7 +32,7 @@ int led_buffer[4]; // LED Status
 
 int hour = 15, minute = 8, second = 50;
 
-// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz, CLOCK_COUNTER = 1 second counter;
+// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 500 * 4 (7Seg) = 0.5Hz, CLOCK_COUNTER = 1 second counter;
 const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 50, CLOCK_COUNTER = 100;
 /* USER CODE END PV */
 
