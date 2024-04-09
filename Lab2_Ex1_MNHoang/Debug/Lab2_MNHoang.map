@@ -2748,50 +2748,50 @@ LOAD D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.e
                 0x0000000008001f60                . = ALIGN (0x4)
                 0x0000000008001f60                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0x28 load address 0x0000000008001f60
+.data           0x0000000020000000       0x18 load address 0x0000000008001f60
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
  *(.data*)
- .data.led_buffer
-                0x0000000020000000       0x10 ./Core/Src/main.o
-                0x0000000020000000                led_buffer
- .data.hour     0x0000000020000010        0x4 ./Core/Src/main.o
-                0x0000000020000010                hour
- .data.minute   0x0000000020000014        0x4 ./Core/Src/main.o
-                0x0000000020000014                minute
- .data.second   0x0000000020000018        0x4 ./Core/Src/main.o
-                0x0000000020000018                second
+ .data.hour     0x0000000020000000        0x4 ./Core/Src/main.o
+                0x0000000020000000                hour
+ .data.minute   0x0000000020000004        0x4 ./Core/Src/main.o
+                0x0000000020000004                minute
+ .data.second   0x0000000020000008        0x4 ./Core/Src/main.o
+                0x0000000020000008                second
  .data.SystemCoreClock
-                0x000000002000001c        0x4 ./Core/Src/system_stm32f1xx.o
-                0x000000002000001c                SystemCoreClock
+                0x000000002000000c        0x4 ./Core/Src/system_stm32f1xx.o
+                0x000000002000000c                SystemCoreClock
  .data.uwTickPrio
-                0x0000000020000020        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x0000000020000020                uwTickPrio
+                0x0000000020000010        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x0000000020000010                uwTickPrio
  .data.uwTickFreq
-                0x0000000020000024        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x0000000020000024                uwTickFreq
+                0x0000000020000014        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x0000000020000014                uwTickFreq
  *(.RamFunc)
  *(.RamFunc*)
-                0x0000000020000028                . = ALIGN (0x4)
- *fill*         0x0000000020000025        0x3 
-                0x0000000020000028                _edata = .
+                0x0000000020000018                . = ALIGN (0x4)
+ *fill*         0x0000000020000015        0x3 
+                0x0000000020000018                _edata = .
 
-.igot.plt       0x0000000020000028        0x0 load address 0x0000000008001f88
- .igot.plt      0x0000000020000028        0x0 D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7-m/nofp/crtbegin.o
-                0x0000000020000028                . = ALIGN (0x4)
+.igot.plt       0x0000000020000018        0x0 load address 0x0000000008001f78
+ .igot.plt      0x0000000020000018        0x0 D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7-m/nofp/crtbegin.o
+                0x0000000020000018                . = ALIGN (0x4)
 
-.bss            0x0000000020000028       0x84 load address 0x0000000008001f88
-                0x0000000020000028                _sbss = .
-                0x0000000020000028                __bss_start__ = _sbss
+.bss            0x0000000020000018       0x94 load address 0x0000000008001f78
+                0x0000000020000018                _sbss = .
+                0x0000000020000018                __bss_start__ = _sbss
  *(.bss)
- .bss           0x0000000020000028       0x1c D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7-m/nofp/crtbegin.o
+ .bss           0x0000000020000018       0x1c D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.bss*)
- .bss.htim2     0x0000000020000044       0x48 ./Core/Src/main.o
-                0x0000000020000044                htim2
+ .bss.htim2     0x0000000020000034       0x48 ./Core/Src/main.o
+                0x0000000020000034                htim2
  .bss.index_led
-                0x000000002000008c        0x4 ./Core/Src/main.o
-                0x000000002000008c                index_led
+                0x000000002000007c        0x4 ./Core/Src/main.o
+                0x000000002000007c                index_led
+ .bss.led_buffer
+                0x0000000020000080       0x10 ./Core/Src/main.o
+                0x0000000020000080                led_buffer
  .bss.timer0_counter
                 0x0000000020000090        0x4 ./Core/Src/software_timer.o
                 0x0000000020000090                timer0_counter
@@ -2818,7 +2818,7 @@ LOAD D:/Apps/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.e
                 0x00000000200000ac                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200000ac      0x604 load address 0x0000000008001f88
+                0x00000000200000ac      0x604 load address 0x0000000008001f78
                 0x00000000200000b0                . = ALIGN (0x8)
  *fill*         0x00000000200000ac        0x4 
                 [!provide]                        PROVIDE (end = .)
