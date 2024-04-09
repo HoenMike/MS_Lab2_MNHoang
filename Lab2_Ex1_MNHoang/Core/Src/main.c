@@ -26,11 +26,11 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-const int MAX_LED = 2;
+const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[2] = {1, 2}; // LED Status
+int led_buffer[4] = {1, 2, 3, 0}; // LED Status
 
-// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 50 * 10ms = 500ms
+// DOT_COUNTER = 1 times per second, LED_SWITCH_COUNTER = 25 * 4 (7Seg) = 1Hz, CLOCK_COUNTER = 1 second counter;
 const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 50;
 /* USER CODE END PV */
 
@@ -38,7 +38,6 @@ const int DOT_COUNTER = 100, LED_SWITCH_COUNTER = 50;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
-
 /* USER CODE BEGIN PFP */
 void display7SEG(int displayNumber);
 void update7SEG(int index);
@@ -176,10 +175,21 @@ void update7SEG(int index)
     HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN2_Pin | EN3_Pin, GPIO_PIN_SET);
     display7SEG(led_buffer[1]);
     break;
+  case 2:
+    HAL_GPIO_WritePin(GPIOA, EN2_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN3_Pin, GPIO_PIN_SET);
+    display7SEG(led_buffer[2]);
+    break;
+  case 3:
+    HAL_GPIO_WritePin(GPIOA, EN3_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, EN2_Pin | EN0_Pin | EN1_Pin, GPIO_PIN_SET);
+    display7SEG(led_buffer[3]);
+    break;
   default:
     break;
   }
 }
+
 /* USER CODE END 3 */
 
 /**
