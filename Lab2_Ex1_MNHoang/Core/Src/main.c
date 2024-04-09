@@ -250,18 +250,25 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 int flag = 1;
 int counter = 0;
+int halfSecondCounter = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   counter++;
   if (counter >= 50)
   {
-    HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
     counter = 0;
     flag++;
     if (flag > 4)
     {
       flag = 1;
     }
+    halfSecondCounter++;
+  }
+  if (halfSecondCounter > 1)
+  {
+    HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+    HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
+    halfSecondCounter = 0;
   }
   switch (flag)
   {
